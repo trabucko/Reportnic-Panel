@@ -1,21 +1,28 @@
-import { useState } from "react";
+import { useAuth } from "./context/AuthContext";
 import Login from "./components/Login";
+import Dashboard from "./components/dashboard";
+import { auth } from "./firebaseConfig";
 
 function App() {
-  const [claims, setClaims] = useState(null);
+  const { user, claims, loading } = useAuth();
 
-  if (!claims) {
-    return <Login onLogin={setClaims} />;
+  if (loading || (user && claims === undefined)) return <p>Cargando...</p>;
+
+  // Usuario logueado pero sin hospital
+  if (user && !claims?.hospitalId) {
+    const handleLogout = async () => {
+      await auth.signOut();
+    };
+
+    return (
+      <div>
+        <p>No tienes hospital asignado. Contacta al administrador.</p>
+        <button onClick={handleLogout}>Volver al login</button>
+      </div>
+    );
   }
 
-  return (
-    <div>
-      <h1>Bienvenido al panel del hospital</h1>
-      <p>Hospital ID: {claims.hospitalId}</p>
-      <p>Rol: {claims.role}</p>
-      {/* Aquí puedes poner el dashboard o rutas protegidas */}
-    </div>
-  );
+  return user && claims ? <Dashboard claims={claims} /> : <Login />;
 }
 
 export default App;

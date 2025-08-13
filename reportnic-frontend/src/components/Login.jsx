@@ -17,26 +17,21 @@ export default function Login({ onLogin }) {
         password
       );
 
-      // Forzar refresh token para obtener claims actualizados
+      // Forzar refresh token para obtener claims
       const tokenResult = await userCredential.user.getIdTokenResult(true);
 
-      if (!tokenResult.claims.hospitalId) {
-        setError("No tienes hospital asignado. Contacta al administrador.");
-        await auth.signOut();
-        return;
-      }
-
+      // En lugar de cerrar sesión aquí, solo pasamos las claims
       onLogin(tokenResult.claims);
     } catch (err) {
       if (
         err.code === "auth/wrong-password" ||
         err.code === "auth/user-not-found"
       ) {
-        setError("Correo o contraseña incorrecta");
+        setError("Correo o contraseña incorrecta , vuelva a intentarlo");
       } else if (err.code === "auth/invalid-email") {
-        setError("Correo inválido");
+        setError("Correo inválido, vuelva a intentarlo");
       } else if (err.code === "auth/invalid-credential") {
-        setError("Credenciales inválidas, verifica email y contraseña");
+        setError("Correo o contraseña incorrecta, vuelva a intentarlo");
       } else {
         setError(err.message);
       }
