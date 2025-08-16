@@ -1,6 +1,7 @@
 import express from "express"; // Framework para crear un servidor web y manejar rutas HTTP (peticiones del Frontend al Backend)
 import cors from "cors"; // Middleware para permitir solicitudes desde otros orígenes (CORS)
 import dotenv from "dotenv"; //para cargar variables de entorno (para mantener una seguridad en datos valiosos)
+import AlertasRouter from "./routes/alertas.js"; // tu router de notificaciones
 
 //se cargan las variables de entorno del archivo .env
 dotenv.config();
@@ -15,6 +16,8 @@ app.use(cors());
 // Habilitar el parseo de datos JSON en el cuerpo de las peticiones (req.body)
 
 app.use(express.json()); //hace que estas peticiones , puedan ser facilmente procesadas en formato JSON
+
+app.use("/alertas", AlertasRouter);
 
 //Ruta de Prueba
 app.get("/", (req, res) => {

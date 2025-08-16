@@ -1,9 +1,9 @@
-var admin = require("firebase-admin");
-
-var serviceAccount = require("./serviceAccountKey.json");
+// firebase.js
+import admin from "firebase-admin";
+import serviceAccount from "./serviceAccountKey.json" with { type: "json" };
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-//crear script para crear usuarios admin con custom claims
+export default admin;
