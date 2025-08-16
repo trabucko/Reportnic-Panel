@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "./components/Login";
-import Dashboard from "./components/dashboard";
-import CrearMonitor from "./components/createMonitor.jsx";
+import Login from "./pages/Login";
+import Dashboard from "./pages/dashboard";
+import CrearMonitor from "./pages/createMonitor.jsx";
 import { useAuth } from "./context/AuthContext";
 import { auth } from "./firebaseConfig";
 
