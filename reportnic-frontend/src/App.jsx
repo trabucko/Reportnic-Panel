@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Dashboard from "./pages/dashboard";
+import Login from "./pages/Login/Login.jsx";
+import Home from "./pages/Home/Home.jsx";
 import CrearMonitor from "./pages/createMonitor.jsx";
 import { useAuth } from "./context/AuthContext";
 import { auth } from "./firebaseConfig";
@@ -23,7 +23,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Dashboard claims={claims} />} />
+      <Route path="/" element={<Home claims={claims} />} />
       <Route path="/crear-monitor" element={<CrearMonitor claims={claims} />} />
     </Routes>
   );

@@ -1,0 +1,115 @@
+/* src/pages/Home/Home.css */
+
+/* Contenedor principal */
+.home {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: var(--bg);
+  color: var(--text-light);
+  font-family: var(--font-main);
+}
+
+/* Títulos */
+.home h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.home h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 0.5rem;
+}
+
+/* Botones */
+.home button {
+  background-color: var(--accent);
+  color: var(--text-dark);
+  border: none;
+  padding-top: var(--navbar-height); /* deja espacio para el navbar */
+
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-right: 0.5rem;
+}
+
+.home button:hover {
+  background-color: #0ea5e9;
+  transform: translateY(-2px);
+}
+
+/* Lista de alertas */
+.home ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+  margin-top: 1rem;
+}
+
+/* Tarjeta de alerta */
+.home li {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  border-left: 6px solid var(--accent);
+  background-color: rgba(25, 26, 16, 0.9);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Colores según tipo de alerta */
+.home li.alert-high {
+  border-left-color: #c21717;
+}
+
+.home li.alert-medium {
+  border-left-color: #f59e0b;
+}
+
+.home li.alert-low {
+  border-left-color: #22c55e;
+}
+
+/* Tiempos de alerta */
+.home li p.alert-time {
+  font-size: 0.85em;
+  font-style: italic;
+}
+
+/* Información de alertas */
+.home li p strong {
+  color: var(--accent);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home {
+    padding: 1rem;
+  }
+
+  .home h1 {
+    font-size: 1.5rem;
+  }
+
+  .home h2 {
+    font-size: 1.2rem;
+  }
+
+  .home ul {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,11 +1,7 @@
-import admin from "../config/firebase.js";
-
-const db = admin.firestore();
-
 export const createMonitor = async (req, res) => {
   try {
-    const { email, password } = req.body; // El frontend manda solo esto
-    const authUser = req.user; // El usuario que hace la petición (admin)
+    const { email, password, firstName, lastName } = req.body;
+    const authUser = req.user;
 
     // Validar que quien crea sea admin
     if (authUser.role !== "hospital_manager") {
@@ -14,7 +10,7 @@ export const createMonitor = async (req, res) => {
         .json({ error: "No autorizado. Debes ser administrador." });
     }
 
-    const hospitalId = authUser.hospitalId; // Heredamos el hospitalId del admin
+    const hospitalId = authUser.hospitalId;
 
     // Crear usuario monitor
     const userRecord = await admin.auth().createUser({ email, password });
@@ -25,11 +21,15 @@ export const createMonitor = async (req, res) => {
       hospitalId,
     });
 
+    // Crear nombre completo
+    const fullName = lastName ? `${firstName} ${lastName}` : firstName || "";
+
     // Guardar en Firestore
     await db.collection("usuarios_hospitales").doc(userRecord.uid).set({
       email,
       role: "monitor",
       hospitalId,
+      fullName, // <-- guardamos el nombre completo
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
@@ -37,6 +37,7 @@ export const createMonitor = async (req, res) => {
       message: "Usuario monitor creado con éxito",
       email,
       hospitalId,
+      fullName,
     });
   } catch (error) {
     console.error("Error creando monitor:", error);
